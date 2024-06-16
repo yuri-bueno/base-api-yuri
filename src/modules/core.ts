@@ -7,6 +7,7 @@ import "express-async-errors";
 import { glob } from "glob";
 import helmet, { HelmetOptions } from "helmet";
 import { join } from "node:path";
+import { cwd } from "node:process";
 import { Router } from "./router";
 
 interface IAppCore {
@@ -71,7 +72,7 @@ export class appCore {
     // const extension = pathname.substring(pathname.lastIndexOf("."));
 
     // if (extension == ".ts") console.log(extension);
-    const routesDir = join(__dirname, "..");
+    const routesDir = join(cwd(), "src");
     const folders = ["routes/**/*.{ts,js}"];
 
     const paths = await glob(folders, { cwd: routesDir });
