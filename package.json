@@ -2,17 +2,20 @@
   "name": "api-y",
   "version": "1.0.0",
   "bin": "bin/cli.js",
-  "description": "",
+  "description": "minha base de api",
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist && node .",
     "dev": "tsx watch -r tsconfig-paths/register src/index.ts",
-    "push":"npm run build && git push"
+    "push": "npm run build && git push"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "api-y",
+    "api"
+  ],
+  "author": "drailer",
   "license": "ISC",
   "dependencies": {
     "@discordjs/collection": "^2.1.0",
