@@ -1,0 +1,14 @@
+
+node_modules/
+package-lock.json/
+excluir.js
+teste.js
+
+.env
+*.sqlite
+
+dist/
+
+uploads/*
+
+!.gitkeep
