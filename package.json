@@ -8,7 +8,8 @@
   "scripts": {
     "build": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist && node .",
-    "dev": "tsx watch -r tsconfig-paths/register src/index.ts"
+    "dev": "tsx watch -r tsconfig-paths/register src/index.ts",
+    "push":"npm run build && git push"
   },
   "keywords": [],
   "author": "",
