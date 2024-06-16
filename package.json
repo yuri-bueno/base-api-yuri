@@ -5,8 +5,8 @@
   "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && tscpaths -p tsconfig.json -s ./src -o ./dist",
-    "start": "tsc && tscpaths -p tsconfig.json -s ./src -o ./dist && node .",
+    "build": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist && node .",
     "dev": "tsx watch -r tsconfig-paths/register src/index.ts"
   },
   "keywords": [],
