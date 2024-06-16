@@ -101,7 +101,7 @@ export class appCore {
           middlewareInRoute.push(allMidlewares[middleware](route));
         }
 
-      this.app[method](path, ...middlewareInRoute, execute);
+      this.app[method](path, ...middlewareInRoute, execute as any);
 
       log.success(`Rota ${id} registrada com sucesso`);
     });
