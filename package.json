@@ -1,7 +1,7 @@
 {
   "name": "api-y",
   "version": "1.0.0",
-  "bin": ".bin/cli.js",
+  "bin": "bin/cli.js",
   "description": "",
   "type": "commonjs",
   "main": "dist/index.js",
