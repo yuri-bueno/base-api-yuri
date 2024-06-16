@@ -1,5 +1,5 @@
 {
-  "name": "api-y",
+  "name": "zac-api",
   "version": "1.0.0",
   "bin": "bin/cli.js",
   "description": "minha base de api",
