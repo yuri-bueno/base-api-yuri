@@ -57,7 +57,6 @@ class appCore {
         }
         router_1.Router.all.forEach((route) => {
             const { id, path, middlewares, method, execute } = route;
-            console.log(route);
             const middlewareInRoute = [];
             const allMidlewares = Array.from(new Set([...this.midlewares, ...middlewares]));
             if (allMidlewares?.length)
