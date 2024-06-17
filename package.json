@@ -8,8 +8,7 @@
   "scripts": {
     "build": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist",
     "start": "tsc --declaration && tscpaths -p tsconfig.json -s ./src -o ./dist && node .",
-    "dev": "tsx watch -r tsconfig-paths/register src/index.ts",
-    "push": "npm run build && git push"
+    "dev": "tsx watch -r tsconfig-paths/register src/index.ts"
   },
   "keywords": [
     "api-y",
@@ -28,6 +27,7 @@
     "helmet": "^7.1.0"
   },
   "devDependencies": {
+    "@clack/prompts": "^0.7.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.2",
@@ -36,6 +36,7 @@
     "tscpaths": "^0.0.9",
     "tslib": "^2.6.3",
     "tsx": "^4.15.5",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "yargs": "^17.7.2"
   }
 }

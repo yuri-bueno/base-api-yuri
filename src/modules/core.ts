@@ -66,14 +66,12 @@ export class appCore {
   }
 
   private async setRoutes() {
-    // const url = import.meta.url;
-    // const urlObject = new URL(url);
-    // const pathname = urlObject.pathname;
-    // const extension = pathname.substring(pathname.lastIndexOf("."));
+    const isTypeScript = __filename.endsWith("ts");
 
-    // if (extension == ".ts") console.log(extension);
-    const routesDir = join(cwd(), "src");
-    const folders = ["routes/**/*.{ts,js}"];
+    const outDir = isTypeScript ? "src" : "dist";
+
+    const routesDir = join(cwd(), outDir);
+    const folders = ["routes/**/*.{js,ts}"];
 
     const paths = await glob(folders, { cwd: routesDir });
 

@@ -47,13 +47,10 @@ class appCore {
             callback();
     }
     async setRoutes() {
-        // const url = import.meta.url;
-        // const urlObject = new URL(url);
-        // const pathname = urlObject.pathname;
-        // const extension = pathname.substring(pathname.lastIndexOf("."));
-        // if (extension == ".ts") console.log(extension);
-        const routesDir = (0, node_path_1.join)((0, node_process_1.cwd)(), "src");
-        const folders = ["routes/**/*.{ts,js}"];
+        const isTypeScript = __filename.endsWith("ts");
+        const outDir = isTypeScript ? "src" : "dist";
+        const routesDir = (0, node_path_1.join)((0, node_process_1.cwd)(), outDir);
+        const folders = ["routes/**/*.{js,ts}"];
         const paths = await (0, glob_1.glob)(folders, { cwd: routesDir });
         for (const path of paths) {
             await Promise.resolve(`${(0, node_path_1.join)(routesDir, path)}`).then(s => tslib_1.__importStar(require(s)));
