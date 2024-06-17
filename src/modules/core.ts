@@ -81,7 +81,6 @@ export class appCore {
 
     Router.all.forEach((route) => {
       const { id, path, middlewares, method, execute } = route;
-      console.log(route);
 
       const middlewareInRoute: Imiddleware[] = [];
 
