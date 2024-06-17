@@ -67,7 +67,6 @@ export class appCore {
 
   private async setRoutes() {
     const isTypeScript = __filename.endsWith("ts");
-
     const outDir = isTypeScript ? "src" : "dist";
 
     const routesDir = join(cwd(), outDir);
