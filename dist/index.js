@@ -1,9 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Route = exports.log = exports.appCore = void 0;
+exports.Route = exports.log = exports.express = exports.appCore = exports.apiErrors = void 0;
+const tslib_1 = require("tslib");
 const index_1 = require("./core/index");
 Object.defineProperty(exports, "appCore", { enumerable: true, get: function () { return index_1.appCore; } });
 const router_1 = require("./core/router");
 Object.defineProperty(exports, "Route", { enumerable: true, get: function () { return router_1.Route; } });
+const express_1 = tslib_1.__importDefault(require("express"));
+exports.express = express_1.default;
+const erros_1 = tslib_1.__importDefault(require("./utils/erros"));
+exports.apiErrors = erros_1.default;
 const index_2 = require("./utils/index");
 Object.defineProperty(exports, "log", { enumerable: true, get: function () { return index_2.log; } });

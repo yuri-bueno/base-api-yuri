@@ -1,4 +1,4 @@
-### Exemplo route and middleware
+### new route example
 
 ```ts
 import { IRouter, personalRequest } from "@/core/router";
