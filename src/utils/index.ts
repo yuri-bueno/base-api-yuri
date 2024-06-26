@@ -1,4 +1,3 @@
-import { Router } from "@/modules/router";
 import chalk from "chalk";
 import { join } from "node:path";
 import { cwd } from "node:process";

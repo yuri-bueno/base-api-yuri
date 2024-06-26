@@ -1,4 +1,4 @@
-import { appCore } from "./modules/core";
-import { Router } from "./modules/router";
+import { appCore, IAppCore } from "./core/index";
+import { IRouter, Route } from "./core/router";
 import { log } from "./utils/index";
-export { Router, appCore, log };
+export { appCore, IAppCore, IRouter, log, Route };

@@ -20,12 +20,13 @@ async function runCommand(command, pathEnabled = true) {
 }
 
 async function main() {
+  // @ts-ignore
   const flags = yargs.argv;
   path = flags.path ?? flags.p;
 
   prompt.intro(`🔰 ${chalk.bgGreen("Inicializador zac-api")}`);
   if (flags.all || flags.a) {
-    return templateAll({ path });
+    return templateAll();
   }
 
   if (!path) {
