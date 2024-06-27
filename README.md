@@ -1,40 +1,13 @@
 ### new route example
 
 ```ts
-import { IRouter, personalRequest } from "@/core/router";
-import apiErrors from "@/utils/erros";
-import { NextFunction, Request, Response } from "express";
-import { z } from "zod";
-import { Route } from "..";
-
-function authMiddleware(role: string) {
-  console.log(role);
-
-  return (routeConfig: IRouter) => {
-    console.log(routeConfig);
-
-    return (req: Request, res: Response, next: NextFunction) => {
-      console.log(req.body);
-
-      role;
-
-      if (role != "admin")
-        return res.status(401).json({ message: "role is not admin" });
-
-      next();
-    };
-  };
-}
-interface req2 extends personalRequest {
-  arroz?: 2;
-}
-let count = 0;
+import { Route, apiErrors } from "zac-api";
+import z from "zod";
 
 new Route({
   method: "post",
-  path: "/exemplo",
+  path: "/exemple",
   files: { folder: "test", type: "image/", max: 2 },
-  middlewares: [authMiddleware("admin")],
   params: {
     body: z.object({
       name: z.string(),
@@ -51,16 +24,62 @@ new Route({
     }),
   },
 
-  execute(req: req2, res) {
+  execute(req, res) {
     const files = req.saveFiles();
 
     if (files.success) {
       console.log(files.ids);
     }
 
-    count++;
-    res.status(200).json({ count, body: req.body });
-    console.log(count);
+    res.status(200).json({ body: req.body });
+  },
+});
+```
+
+### new middleware exemple
+
+```ts
+import { IRouter } from "zac-api";
+
+import { NextFunction, Request, Response } from "express"; // in zac-api
+
+function authMiddleware(role: string) {
+  return (routeConfig: IRouter) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+      console.log(role);
+      console.log(routeConfig);
+      console.log(req.body);
+
+      if (role != "admin")
+        return res.status(401).json({ message: "role is not admin" });
+
+      next();
+    };
+  };
+}
+
+interface IAuthReq extends personalRequest {
+  isAuth?: boolean;
+}
+
+new Route({
+  method: "post",
+  path: "/exemple",
+  middlewares: [authMiddleware("admin")],
+  params: {
+    body: z.object({
+      name: z.string(),
+    }),
+  },
+
+  execute(req: IAuthReq, res) {
+    const files = req.saveFiles();
+
+    if (files.success) {
+      console.log(files.ids);
+    }
+
+    res.status(200).json({ body: req.body });
   },
 });
 ```
