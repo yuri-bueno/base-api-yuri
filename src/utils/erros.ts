@@ -2,6 +2,7 @@ const apiErrors = {
   REQUIRED_ERROR: "required",
 
   INVALID_NUMBER_ERROR: "invalid-number",
+  INVALID_TYPE_ERROR: "invalid-type",
   LONG_NUMBER_ERROR: "long-number",
   SHORT_NUMBER_ERROR: "short-number",
 
