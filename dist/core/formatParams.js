@@ -15,7 +15,7 @@ function formatParams(route) {
                 const validParam = route.params[filterParam]?.safeParse(req[filterParam]);
                 if (!validParam?.success) {
                     for (const issue of validParam?.error?.issues ?? []) {
-                        errors.push({ path: issue.path, message: issue.message });
+                        errors.push({ path: issue.path[0], message: issue.message });
                     }
                     continue;
                 }
@@ -31,7 +31,7 @@ function formatParams(route) {
                 const validParam = route.params[filterParam]?.safeParse(req[filterParam]);
                 if (!validParam?.success) {
                     for (const issue of validParam?.error?.issues ?? []) {
-                        errors.push({ path: issue.path, message: issue.message });
+                        errors.push({ path: issue.path[0], message: issue.message });
                     }
                     continue;
                 }

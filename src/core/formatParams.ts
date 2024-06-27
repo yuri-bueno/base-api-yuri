@@ -21,7 +21,7 @@ export default function formatParams(route: IRouter) {
 
         if (!validParam?.success) {
           for (const issue of validParam?.error?.issues ?? []) {
-            errors.push({ path: issue.path, message: issue.message });
+            errors.push({ path: issue.path[0], message: issue.message });
           }
           continue;
         }
@@ -40,7 +40,7 @@ export default function formatParams(route: IRouter) {
 
         if (!validParam?.success) {
           for (const issue of validParam?.error?.issues ?? []) {
-            errors.push({ path: issue.path, message: issue.message });
+            errors.push({ path: issue.path[0], message: issue.message });
           }
           continue;
         }
