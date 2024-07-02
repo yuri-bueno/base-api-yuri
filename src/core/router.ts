@@ -34,6 +34,8 @@ export type filesTypes =
 
 export interface personalRequest extends Request {
   saveFiles: () => { success: false } | { success: true; ids: string[] };
+
+  files: Express.Multer.File[];
 }
 
 interface IRouterBase {
