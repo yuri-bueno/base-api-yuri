@@ -3,7 +3,7 @@ import { Collection } from "@discordjs/collection";
 import { NextFunction, Request, Response } from "express";
 import z from "zod";
 export type Imiddleware = (route: IRouter) => (req: Request, res: Response, next: NextFunction) => any;
-export type Iexecute = (req: personalRequest, res: Response) => any;
+export type Iexecute = (req: personalRequest, res: IResponsePersonal) => any;
 export type Ifile = {
     max?: number;
     type: filesTypes;
@@ -20,6 +20,10 @@ export interface personalRequest extends Request {
         ids: string[];
     };
     files: Express.Multer.File[];
+}
+export interface IResponsePersonal extends Response {
+    success: (json?: object) => void;
+    reject: (text: string, json?: object) => void;
 }
 interface IRouterBase {
     path: string;
@@ -58,7 +62,7 @@ export declare class Route {
         query?: z.ZodObject<any>;
         params?: z.ZodObject<any>;
     };
-    execute: (req: personalRequest, res: Response) => void;
+    execute: (req: personalRequest, res: IResponsePersonal) => void;
     constructor(config: IRouter);
 }
 export {};

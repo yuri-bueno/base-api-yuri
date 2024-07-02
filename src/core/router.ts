@@ -8,7 +8,7 @@ export type Imiddleware = (
   route: IRouter
 ) => (req: Request, res: Response, next: NextFunction) => any;
 
-export type Iexecute = (req: personalRequest, res: Response) => any;
+export type Iexecute = (req: personalRequest, res: IResponsePersonal) => any;
 
 export type Ifile = {
   max?: number;
@@ -36,6 +36,11 @@ export interface personalRequest extends Request {
   saveFiles: () => { success: false } | { success: true; ids: string[] };
 
   files: Express.Multer.File[];
+}
+
+export interface IResponsePersonal extends Response {
+  success: (json?: object) => void;
+  reject: (text: string, json?: object) => void;
 }
 
 interface IRouterBase {
@@ -82,7 +87,7 @@ export class Route {
     query?: z.ZodObject<any>;
     params?: z.ZodObject<any>;
   };
-  public execute: (req: personalRequest, res: Response) => void;
+  public execute: (req: personalRequest, res: IResponsePersonal) => void;
 
   constructor(config: IRouter) {
     const { path, params, method, middlewares = [], files, execute } = config;
@@ -114,71 +119,3 @@ export class Route {
     });
   }
 }
-// new Router({
-//   path: "user",
-//   method: "post",
-//   params: { body: z.object({}) },
-
-//   execute(req, res) {
-//     req.body;
-//   },
-// });
-
-// export class Router2 {
-//   public static all: Collection<string, typeof Router> = new Collection();
-
-//   public readonly router_id?: string;
-//   public path: string;
-//   public body: object = {};
-//   public method: methods;
-//   public middlewares: any[] = [];
-
-//   // private exec: (req: Request, res: Response) => void ;
-
-//   constructor({
-//     id,
-//     path,
-//     method,
-//     body,
-//   }: {
-//     id?: string;
-//     path: string;
-//     method: methods;
-//     body:  z.ZodString;
-//   }) {
-//     this.router_id = id;
-//     this.path = path;
-//     this.method = method;
-//     this.body = body;
-//   }
-
-//   public execute(req: ) {
-//     // Implementação do método execute
-//     // Exemplo de uso:
-//     console.log(req.body); // Aqui você pode acessar req.body com segurança
-//   }
-// }
-
-// interface IRouterConfig<T extends z.ZodRawShape, Q, P> {
-//   query?: Q;
-//   body: T;
-//   params?: P;
-//   execute: (req: Request<P, Q, z.infer<z.ZodObject>>, res: Response) => void;
-// }
-
-// function createRoute<B, Q, P>(routerConfig: IRouterConfig<B, Q, P>) {
-
-//   return routerConfig;
-// }
-
-// createRoute({
-//   body: z.object({ name: z.string().email() }),
-
-//   execute(req, res) {
-//     req.body.;
-//   },
-// });
-
-// // function sla(params ) {
-// //   return params.parce;
-// // }

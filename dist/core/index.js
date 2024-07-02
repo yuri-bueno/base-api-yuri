@@ -14,6 +14,7 @@ const node_process_1 = require("node:process");
 const yargs_1 = tslib_1.__importDefault(require("yargs"));
 const formatParams_1 = tslib_1.__importDefault(require("./formatParams"));
 const multer_1 = require("./multer");
+const responsePlus_1 = require("./responsePlus");
 const router_1 = require("./router");
 class appCore {
     port = 3000;
@@ -80,6 +81,7 @@ class appCore {
     startDefaultMiddlewares() {
         this.middlewares.push(multer_1.multerMiddleware);
         this.middlewares.push(formatParams_1.default);
+        this.middlewares.push(responsePlus_1.responsePlus);
     }
     async setRoutes() {
         await this.loadFiles(["routes"]);

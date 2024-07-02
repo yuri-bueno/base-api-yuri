@@ -11,6 +11,7 @@ import { cwd } from "node:process";
 import yargs from "yargs";
 import formatParams from "./formatParams";
 import { multerMiddleware } from "./multer";
+import { responsePlus } from "./responsePlus";
 import { Imiddleware, Route } from "./router";
 
 export interface IAppCore {
@@ -112,6 +113,7 @@ export class appCore {
   private startDefaultMiddlewares() {
     this.middlewares.push(multerMiddleware as any);
     this.middlewares.push(formatParams);
+    this.middlewares.push(responsePlus);
   }
 
   private async setRoutes() {
