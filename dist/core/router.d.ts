@@ -19,6 +19,7 @@ export interface personalRequest extends Request {
         success: true;
         ids: string[];
     };
+    files: Express.Multer.File[];
 }
 interface IRouterBase {
     path: string;
