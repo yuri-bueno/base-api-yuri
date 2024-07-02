@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { IRouter } from "./router";
+import { IRouter } from "../router";
 
 const filterWithBodyParams = ["params", "query", "body"] as const;
 const filterWithoutBodyParams = ["params", "query"] as const;

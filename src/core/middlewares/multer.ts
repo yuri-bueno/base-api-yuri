@@ -5,7 +5,7 @@ import { cwd } from "node:process";
 import path from "path";
 
 import { v4 as uuid4 } from "uuid";
-import { IRouter, personalRequest } from "./router";
+import { IRouter, personalRequest } from "../router";
 
 const __rootname = cwd();
 

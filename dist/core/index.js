@@ -12,9 +12,10 @@ const helmet_1 = tslib_1.__importDefault(require("helmet"));
 const node_path_1 = require("node:path");
 const node_process_1 = require("node:process");
 const yargs_1 = tslib_1.__importDefault(require("yargs"));
-const formatParams_1 = tslib_1.__importDefault(require("./formatParams"));
-const multer_1 = require("./multer");
-const responsePlus_1 = require("./responsePlus");
+const errorHandler_1 = require("./middlewares/errorHandler");
+const formatParams_1 = tslib_1.__importDefault(require("./middlewares/formatParams"));
+const multer_1 = require("./middlewares/multer");
+const responsePlus_1 = require("./middlewares/responsePlus");
 const router_1 = require("./router");
 class appCore {
     port = 3000;
@@ -45,6 +46,7 @@ class appCore {
         await this.startDefaultMiddlewares();
         await this.setRoutes();
         await this.loadFiles(this.options?.loadFiles ?? []);
+        this.app.use(errorHandler_1.errorHandler);
         await await this.listenServer();
         console.timeEnd(log.server("startup in"));
         if (callback)

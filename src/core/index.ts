@@ -9,9 +9,10 @@ import helmet, { HelmetOptions } from "helmet";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import yargs from "yargs";
-import formatParams from "./formatParams";
-import { multerMiddleware } from "./multer";
-import { responsePlus } from "./responsePlus";
+import { errorHandler } from "./middlewares/errorHandler";
+import formatParams from "./middlewares/formatParams";
+import { multerMiddleware } from "./middlewares/multer";
+import { responsePlus } from "./middlewares/responsePlus";
 import { Imiddleware, Route } from "./router";
 
 export interface IAppCore {
@@ -68,10 +69,12 @@ export class appCore {
     await this.setRoutes();
     await this.loadFiles(this.options?.loadFiles ?? []);
 
+    this.app.use(errorHandler);
     await await this.listenServer();
     console.timeEnd(log.server("startup in"));
     if (callback) await callback();
   }
+
   private async listenServer() {
     await new Promise((resolve) => {
       this.http.listen(this.port, () => {

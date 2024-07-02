@@ -1,5 +1,5 @@
 import { NextFunction, Request } from "express";
-import { IRouter } from "./router";
+import { IRouter } from "../router";
 
 export function responsePlus(route: IRouter) {
   return (req: Request, res: any, next: NextFunction) => {
