@@ -22,15 +22,17 @@ class appCore {
     cors;
     helmet;
     middlewares;
-    routerPath;
-    options = { formatParams: true, routerPath: "routes" };
+    options = {
+        formatParams: true,
+        loadFiles: [],
+    };
     constructor({ port, cors = {}, helmet = {}, midlewares = [], options, }) {
         this.app = (0, express_1.default)();
         this.cors = cors;
         this.port = port;
         this.helmet = helmet;
         this.middlewares = midlewares;
-        this.routerPath = options?.routerPath ?? "routes";
+        this.options = options ?? { loadFiles: [] };
         this.http = node_http_1.default.createServer(this.app);
     }
     async init(callback) {
@@ -41,7 +43,8 @@ class appCore {
         this.app.use(express_1.default.urlencoded({ extended: true }));
         await this.startDefaultMiddlewares();
         await this.setRoutes();
-        await this.listenServer();
+        await this.loadFiles(this.options?.loadFiles ?? []);
+        await await this.listenServer();
         console.timeEnd(log.server("startup in"));
         if (callback)
             await callback();
@@ -58,23 +61,28 @@ class appCore {
         this.app.use(any);
         return this;
     }
+    async loadFiles(paths) {
+        for (const path of paths) {
+            const argv = await (0, yargs_1.default)(process.argv)
+                .options({ $0: { type: "string", default: "a.js" } })
+                .parse();
+            const isTypeScript = argv.$0.endsWith("ts");
+            const outDir = isTypeScript ? "src" : "dist";
+            const routesDir = (0, node_path_1.join)((0, node_process_1.cwd)(), outDir);
+            const folders = [`${path}/**/*.{ts,js}`];
+            const pathsToLoading = await (0, glob_1.glob)(folders, { cwd: routesDir });
+            for (const path of pathsToLoading) {
+                await Promise.resolve(`${(0, node_path_1.join)(routesDir, path)}`).then(s => tslib_1.__importStar(require(s)));
+            }
+        }
+        return this;
+    }
     startDefaultMiddlewares() {
         this.middlewares.push(multer_1.multerMiddleware);
         this.middlewares.push(formatParams_1.default);
     }
     async setRoutes() {
-        const argv = await (0, yargs_1.default)(process.argv)
-            .options({ $0: { type: "string", default: "a.js" } })
-            .parse();
-        const isTypeScript = argv.$0.endsWith("ts");
-        const outDir = isTypeScript ? "src" : "dist";
-        const routesDir = (0, node_path_1.join)((0, node_process_1.cwd)(), outDir);
-        // const routesDir = join(__dirname, "..");
-        const folders = ["routes/**/*.{ts,js}"];
-        const paths = await (0, glob_1.glob)(folders, { cwd: routesDir });
-        for (const path of paths) {
-            await Promise.resolve(`${(0, node_path_1.join)(routesDir, path)}`).then(s => tslib_1.__importStar(require(s)));
-        }
+        await this.loadFiles(["routes"]);
         router_1.Route.all.forEach((route) => {
             const { id, path, middlewares = [], method, execute } = route;
             console.time(log.router(`Route ${id} registered`));
