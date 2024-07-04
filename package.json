@@ -1,6 +1,6 @@
 {
   "name": "zac-api",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "bin": "bin/cli.js",
   "description": "minha base de api",
   "type": "commonjs",
@@ -19,9 +19,6 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@discordjs/collection": "^2.1.0",
-    "@types/multer": "^1.4.11",
-    "@types/uuid": "^10.0.0",
-    "@types/yargs": "^17.0.32",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -37,7 +34,10 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.14.2",
+    "@types/uuid": "^10.0.0",
+    "@types/yargs": "^17.0.32",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "tscpaths": "^0.0.9",
