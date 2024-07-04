@@ -1,3 +1,4 @@
+/// <reference types="@types/multer" />
 import { NextFunction, Response } from "express";
 import { IRouter, personalRequest } from "../router";
 export declare function multerMiddleware(route: IRouter): (req: personalRequest, res: Response, next: NextFunction) => void;
