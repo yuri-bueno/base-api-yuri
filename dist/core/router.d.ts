@@ -1,6 +1,3 @@
-/// <reference types="@types/express" />
-/// <reference types="node" />
-/// <reference types="node" />
 import { Collection } from "@discordjs/collection";
 import { NextFunction, Request, Response } from "express";
 import { Readable } from "stream";

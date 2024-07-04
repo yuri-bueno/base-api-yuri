@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = formatParams;
 const filterWithBodyParams = ["params", "query", "body"];
 const filterWithoutBodyParams = ["params", "query"];
 function formatParams(route) {
@@ -43,4 +44,3 @@ function formatParams(route) {
         next();
     };
 }
-exports.default = formatParams;

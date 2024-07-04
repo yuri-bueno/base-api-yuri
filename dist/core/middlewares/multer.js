@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveFiles = exports.multerMiddleware = void 0;
+exports.multerMiddleware = multerMiddleware;
+exports.saveFiles = saveFiles;
 const tslib_1 = require("tslib");
 const fs_1 = tslib_1.__importDefault(require("fs"));
 const multer_1 = tslib_1.__importDefault(require("multer"));
@@ -53,7 +54,6 @@ function multerMiddleware(route) {
         });
     };
 }
-exports.multerMiddleware = multerMiddleware;
 function saveFiles(files, destinationFolder) {
     if (!fs_1.default.existsSync(destinationFolder))
         fs_1.default.mkdirSync(destinationFolder, { recursive: true });
@@ -72,4 +72,3 @@ function saveFiles(files, destinationFolder) {
     });
     return { success: true, ids };
 }
-exports.saveFiles = saveFiles;

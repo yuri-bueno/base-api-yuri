@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.errorHandler = exports.ErrorHandler = void 0;
+exports.ErrorHandler = void 0;
+exports.errorHandler = errorHandler;
 const tslib_1 = require("tslib");
 const utils_1 = require("../../utils");
 const chalk_1 = tslib_1.__importDefault(require("chalk"));
@@ -27,4 +28,3 @@ function errorHandler(err, req, res, next) {
         .status(err.statusCode)
         .json(Object.assign({ success: false }, { error: err.message }, err.json));
 }
-exports.errorHandler = errorHandler;

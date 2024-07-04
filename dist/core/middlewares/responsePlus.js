@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.responsePlus = void 0;
+exports.responsePlus = responsePlus;
 function responsePlus(route) {
     return (req, res, next) => {
         res.success = (json = {}) => {
@@ -14,4 +14,3 @@ function responsePlus(route) {
         return next();
     };
 }
-exports.responsePlus = responsePlus;

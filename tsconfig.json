@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["node", "@types/express", "@types/multer"],
+    "types": ["node", "express", "@types/multer"],
     "lib": ["ESNext"],
     "rootDir": "src",
     "outDir": "dist",

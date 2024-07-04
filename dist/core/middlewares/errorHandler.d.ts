@@ -1,4 +1,3 @@
-/// <reference types="@types/express" />
 import { NextFunction, Request, Response } from "express";
 export declare class ErrorHandler extends Error {
     statusCode: number;
