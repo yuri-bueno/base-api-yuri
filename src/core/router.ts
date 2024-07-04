@@ -33,11 +33,11 @@ export type filesTypes =
   | "application/x-rar-compressed"
   | "all";
 
-export interface personalRequest extends Request {
+export type personalRequest = Request & {
   saveFiles: () => { success: false } | { success: true; ids: string[] };
 
   files: IFile[];
-}
+};
 
 export interface IFile {
   /** Name of the form field associated with this file. */
@@ -69,10 +69,10 @@ export interface IFile {
   buffer: Buffer;
 }
 
-export interface IResponsePersonal extends Response {
+export type IResponsePersonal = Response & {
   success: (json?: object) => void;
   reject: (text: string, json?: object) => void;
-}
+};
 
 interface IRouterBase {
   path: string;
