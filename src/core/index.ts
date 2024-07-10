@@ -1,6 +1,7 @@
 import http from "node:http";
 
 import chalk from "chalk";
+import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
 import express, { Application } from "express";
 import "express-async-errors";
@@ -62,7 +63,7 @@ export class appCore {
     console.time(log.server("startup in"));
     this.app.use(cors(this.cors));
     this.app.use(helmet(this.helmet));
-
+    this.app.use(cookieParser());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     await this.startDefaultMiddlewares();
