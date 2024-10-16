@@ -1,19 +1,85 @@
-### new route example
+# Zac API
+
+**Zac API** é uma biblioteca TypeScript que facilita a criação de rotas com validação automática de `query`, `body` e `params` utilizando [Zod](https://zod.dev/). Ela também oferece suporte para upload de arquivos com limites e tipos definidos.
+
+## Instalação
+
+```
+npm install zac-api
+```
+
+## Inicialização Rápida com `npx`
+
+Você pode criar rapidamente uma estrutura de projeto utilizando o comando:
+
+```
+npx zac-api
+```
+
+Isso vai guiar você na configuração inicial de um projeto usando `zac-api`, permitindo que escolha:
+
+- O diretório onde o projeto será criado
+
+- Módulos adicionais como:
+
+  - format-params
+  - auth
+  - multer
+
+- O ORM (ex.: Prisma) e o banco de dados (ex.: MySQL, PostgreSQL, etc.)
+
+## Uso Básico
+
+### Estrutura do Projeto
+
+Uma estrutura típica de projeto utilizando zac-api poderia ser assim:
+
+`Ao iniciar a aplicação, todas todos os arquivos dentro da pasta routes são carregadas automaticamente.`
+
+```
+my-api/
+├── src/
+│   ├── index.ts
+│   └── routes/
+│       ├── exampleRoute.ts
+│       └── anotherRoute.ts
+├── package.json
+├── tsconfig.json
+└── ...
+```
+
+### Iniciando a API
 
 ```ts
-import { Route, apiErrors } from "zac-api";
-import z from "zod";
+import { appCore } from 'zac-api';
+
+new appCore({ port: 3000, cors: {} }).init();
+```
+
+Aqui:
+
+- port: Define a porta em que a API será executada (neste caso, porta 3000).
+
+- cors: Permite configurar as políticas de CORS da API (dá biblioteca [cors](https://www.npmjs.com/package/cors)).
+
+### Criando Rotas
+
+Cada rota pode ser definida dentro da pasta `routes` e será automaticamente carregada pelo `appCore`. Um exemplo de rota em `src/routes/exampleRoute.ts` seria:
+
+```ts
+import { Route, apiErrors } from 'zac-api';
+import z from 'zod';
 
 new Route({
-  method: "post",
-  path: "/exemple",
-  files: { folder: "test", type: "image/", max: 2 },
+  method: 'post',
+  path: '/exemple',
+  files: { folder: 'test', type: 'image/', max: 2 },
   params: {
     body: z.object({
       name: z.string(),
       isTrue: z.coerce.boolean().default(true),
       idade: z.coerce.number().max(5, apiErrors.LONG_NUMBER_ERROR),
-      email: z.string().email("não é um email."),
+      email: z.string().email('não é um email.'),
       list: z.array(z.string().max(5)).or(
         //or in muilti-form = (files exist)
         z
@@ -36,12 +102,20 @@ new Route({
 });
 ```
 
-### new middleware exemple
+## Usando Middlewares
+
+### Exemplo de Middleware de Autenticação
+
+Neste exemplo, criamos um middleware de autenticação que verifica se o usuário tem a função de "admin" antes de permitir que a rota prossiga:
 
 ```ts
-import { IRouter } from "zac-api";
+import { IRouter } from 'zac-api';
 
-import { NextFunction, Request, Response } from "express"; // in zac-api
+import { NextFunction, Request, Response } from 'express'; // in zac-api
+
+interface IAuthReq extends personalRequest {
+  isAuth?: boolean;
+}
 
 function authMiddleware(role: string) {
   return (routeConfig: IRouter) => {
@@ -50,22 +124,17 @@ function authMiddleware(role: string) {
       console.log(routeConfig);
       console.log(req.body);
 
-      if (role != "admin")
-        return res.status(401).json({ message: "role is not admin" });
+      if (role != 'admin') return res.status(401).json({ message: 'role is not admin' });
 
       next();
     };
   };
 }
 
-interface IAuthReq extends personalRequest {
-  isAuth?: boolean;
-}
-
 new Route({
-  method: "post",
-  path: "/exemple",
-  middlewares: [authMiddleware("admin")],
+  method: 'post',
+  path: '/exemple',
+  middlewares: [authMiddleware('admin')],
   params: {
     body: z.object({
       name: z.string(),
