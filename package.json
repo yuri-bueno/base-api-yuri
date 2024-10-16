@@ -1,6 +1,6 @@
 {
   "name": "zac-api",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "bin": "bin/cli.js",
   "description": "minha base de api",
   "type": "commonjs",
