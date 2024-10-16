@@ -2,6 +2,22 @@
 
 **Zac API** é uma biblioteca TypeScript que facilita a criação de rotas com validação automática de `query`, `body` e `params` utilizando [Zod](https://zod.dev/). Ela também oferece suporte para upload de arquivos com limites e tipos definidos.
 
+### Índice
+
+- [Instalação](#Instalação)
+
+- [Inicialização Rápida com npx](#Inicialização-Rápida-com-`npx`)
+
+- [Uso Básico](#Uso-Básico)
+
+  - [Iniciando a API](#Iniciando-a-API)
+
+  - [Estrutura do Projeto](#Estrutura-do-Projeto)
+
+  - [Criando rotas](#Criando-rotas)
+
+- [Usando Middlewares](#Usando-Middlewares)
+
 ## Instalação
 
 ```
@@ -62,7 +78,7 @@ Aqui:
 
 - cors: Permite configurar as políticas de CORS da API (dá biblioteca [cors](https://www.npmjs.com/package/cors)).
 
-### Criando Rotas
+### Criando rotas
 
 Cada rota pode ser definida dentro da pasta `routes` e será automaticamente carregada pelo `appCore`. Um exemplo de rota em `src/routes/exampleRoute.ts` seria:
 
@@ -120,10 +136,6 @@ interface IAuthReq extends personalRequest {
 function authMiddleware(role: string) {
   return (routeConfig: IRouter) => {
     return (req: Request, res: Response, next: NextFunction) => {
-      console.log(role);
-      console.log(routeConfig);
-      console.log(req.body);
-
       if (role != 'admin') return res.status(401).json({ message: 'role is not admin' });
 
       next();
